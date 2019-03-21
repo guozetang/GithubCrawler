@@ -26,7 +26,7 @@ from StringIO import StringIO
 #############
 # Constants #
 #############
-WORK_DIR = "/users/Guoze/test3/GitHub-Crawler"
+WORK_DIR = "/home/debian/work/GithubCrawler/"
 URL = "https://api.github.com/search/repositories?p=3&q=stars%3A%3E50&s=stars&type=Repositories" #The basic URL to use the GitHub API
 QUERY = "" #The personalized query (for instance, to get repositories from user 'rsain')
 SUBQUERIES = ["+created%3A<%3D2013-12-30","+created%3A>%3D2016-01-01"] #Different subqueries if you need to collect more than 1000 elements
