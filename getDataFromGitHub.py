@@ -60,14 +60,15 @@ def getUrl (url) :
 countOfRepositories = 0
 
 #Output CSV file which will contain information about repositories
-csvfile = open(OUTPUT_CSV_FILE, 'wb')
+csvfile = open(OUTPUT_CSV_FILE, 'r')
 reader = csv.reader(csvfile)
 result = set()
 for item in reader:
   user_temp = item[0]
-	repo_temp = item[1]
-	result.add(str(user_temp) + "#"+ str(repo_temp))
-
+  repo_temp = item[1]
+  result.add(str(user_temp) + "#"+ str(repo_temp))
+csvfile.close()
+csvfile = open(OUTPUT_CSV_FILE, 'wb')
 repositories = csv.writer(csvfile, delimiter=',')
 
 #Run queries to get information in json format and download ZIP file for each repository
@@ -92,8 +93,8 @@ for subquery in range(1, len(SUBQUERIES)+1):
 			repository = item['name']
 			temp = str(user) + "#" + str(repository)
 			if temp in result:
-  			print "Pass:", temp, " Because we already have this one."
-  			continue
+  			  print "Pass:", temp, " Because we already have this one."
+  			  continue
 			repositories.writerow([user, repository])
 			
 			#Download the zip file of the current project				
