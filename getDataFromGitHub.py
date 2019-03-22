@@ -13,7 +13,7 @@
 #############
 # Libraries #
 #############
-
+import os
 import wget
 import time
 import simplejson
@@ -59,15 +59,17 @@ def getUrl (url) :
 #To save the number of repositories processed
 countOfRepositories = 0
 
-#Output CSV file which will contain information about repositories
-csvfile = open(OUTPUT_CSV_FILE, 'r')
-reader = csv.reader(csvfile)
+
 result = set()
-for item in reader:
-  user_temp = item[0]
-  repo_temp = item[1]
-  result.add(str(user_temp) + "#"+ str(repo_temp))
-csvfile.close()
+#Output CSV file which will contain information about repositories
+if os.path.exists(OUTPUT_CSV_FILE):
+  csvfile = open(OUTPUT_CSV_FILE, 'r')
+  reader = csv.reader(csvfile)
+  for item in reader:
+    user_temp = item[0]
+    repo_temp = item[1]
+    result.add(str(user_temp) + "#"+ str(repo_temp))
+  csvfile.close()
 csvfile = open(OUTPUT_CSV_FILE, 'wb')
 repositories = csv.writer(csvfile, delimiter=',')
 
@@ -87,7 +89,9 @@ for subquery in range(1, len(SUBQUERIES)+1):
 		dataRead = simplejson.loads(getUrl(url))
 		
 		#Iteration over all the repositories in the current json content page
-		for item in dataRead['items']:
+                if 'items' not in dataRead:
+                    continue
+                for item in dataRead['items']:
 			#Obtain user and repository names
 			user = item['owner']['login']
 			repository = item['name']
