@@ -18,5 +18,5 @@ requests==2.9.1
 simplejson==3.16.0
 six==1.10.0
 soupsieve==1.8
-urllib3==1.13.1
+urllib3==1.24.2
 wget==3.2
